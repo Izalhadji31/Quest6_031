@@ -4,7 +4,7 @@ package com.example.pertemuan8.ui.view.screen
 fun MahasiswaFormView(
     onSumbitButtonClicked: (MutableList<String>) -> Unit,
     onBackButtonClicked: () -> Unit,
-){
+) {
     var nama by remember {
         mutableStateOf("")
     }
@@ -136,8 +136,22 @@ fun MahasiswaFormView(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
-                )
+                ) {
+                    Button(onClick = {
+                        onBackButtonClicked()
+                    }) {
+                        Text(text = "Kembali")
+                    }
+                    Button(onClick = {
+                        onSumbitButtonClicked(listData)
+                    })
+                    {
+                        Text(text = "Simpan")
+                    }
+                }
 
             }
 
         }
+    }
+}
