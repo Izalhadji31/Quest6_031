@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pertemuan8.ui.view.screen.MahasiswaFormView
 import com.example.pertemuan8.ui.view.screen.RencanaStudiView
 import com.example.pertemuan8.ui.view.screen.SplashView
+import com.example.pertemuan8.ui.view.screen.TampilView
 import com.example.pertemuan8.ui.view.viewmodel.MahasiswaViewModel
 import com.example.pertemuan8.ui.view.viewmodel.RencanaStudyViewModel
 
@@ -34,14 +35,14 @@ fun MahasiswaApp(
         startDestination = Halaman.Splash.name,
         modifier = Modifier.padding()
     ) {
-        composable(route = Halaman.Splash.name){
+        composable(route = Halaman.Splash.name) {
             SplashView(onMulaiButton = {
                 navController.navigate(
                     Halaman.Mahasiswa.name
                 )
             })
         }
-        composable(route = Halaman.Mahasiswa.name){
+        composable(route = Halaman.Mahasiswa.name) {
             MahasiswaFormView(
                 onSumbitButtonClicked = {
                     mahasiswaViewModel.saveDataMahasiswa(it)
@@ -52,11 +53,24 @@ fun MahasiswaApp(
                 }
             )
         }
-        composable(route = Halaman.Matakuliah.name){
+        composable(route = Halaman.Matakuliah.name) {
             RencanaStudiView(
                 mahasiswa = mahasiswaUiState,
-                onSubmitButtonClicked = {krsViewModel.saveDataKRS(it)},
-                onBackButtonClicked = { navController.popBackStack()}
+                onSubmitButtonClicked = { krsViewModel.saveDataKRS(it) },
+                onBackButtonClicked = { navController.popBackStack() }
+            )
+        }
+        composable(route = Halaman.Tampil.name) {
+            TampilView(
+                mahasiswa = mahasiswaUiState,
+                krs = RencanaStudyViewModel.krsStateUi.collectAsState().value,
+                onBackButtonClicked = {
+                    navController.popBackStack()
+                },
+                onResetButtonClicked = {
+                    MahasiswaViewModel.resetdata()
+                    navController.popBackStack(Halaman.Splash.name, inclusive = false)
+                }
             )
         }
     }
