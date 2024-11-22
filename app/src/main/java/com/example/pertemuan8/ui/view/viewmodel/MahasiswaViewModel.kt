@@ -7,16 +7,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-
 class MahasiswaViewModel : ViewModel() {
-    // Req atau event
-    private val _mahasiswaStateUI =
-        MutableStateFlow(Mahasiswa())
 
-    //Response atau state
-    val mahasiswaUiState:
-            StateFlow<Mahasiswa> =
-        _mahasiswaStateUI.asStateFlow()
+
+    private val _mahasiswaStateUI = MutableStateFlow(Mahasiswa())
+
+
+    val mahasiswaUiState: StateFlow<Mahasiswa> = _mahasiswaStateUI.asStateFlow()
+
 
     fun saveDataMahasiswa(ls: MutableList<String>){
         _mahasiswaStateUI.update { statusSaatIni ->
@@ -26,8 +24,5 @@ class MahasiswaViewModel : ViewModel() {
                 email = ls[2]
             )
         }
-    }
-    fun resetData() {
-        _mahasiswaStateUI.value = Mahasiswa()
     }
 }
